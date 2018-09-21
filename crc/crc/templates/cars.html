@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>car search</title>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+<body style="margin-left: 5%; margin-right: 5%" bgcolor="#f0ffff">
+
+{#<img src="/static/image/bmw.jpeg">#}
+ <h1 style="text-align: center">CRC SYSTEM</h1>
+ <div id="user_info">
+
+
+     <a href="/cars"> Car Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <a href="/stores"> Store Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <a href="/customers"> Customer Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        {% if request.session.username %}
+            <div align="right">
+            welcome <font color="red">{{ request.session.username }}</font>
+            <a href="/logout">logout</a>
+            </div>
+         {% else %}
+         <script language="javascript">
+            document.location = "/index";
+          </script>
+      {% endif %}
+ </div>
+<hr/>
+<div align="center">
+    <form action="/cars">
+        <h3>Car Search</h3><br/>
+        <input type="text" width="800px" id="makename" name="makename" value="{{ makename }}"/>
+        <input type="submit"/>
+    </form>
+</div>
+<br/>
+<div id="car_list">
+<table width="100%">
+ <tr align="center" bgcolor="aqua">
+        <td>ID</td>
+        <td>MakeName</td>
+        <td>Model</td>
+        <td>Series</td>
+        <td>SeriesYear</td>
+        <td>PriceNew</td>
+        <td>EngineSize</td>
+        <td>FuelSystem</td>
+        <td>TankCapacity</td>
+        <td>Power</td>
+        <td>SeatingCapacity</td>
+        <td>StandardTransmission</td>
+        <td>BodyType</td>
+        <td>Drive</td>
+        <td>Wheelbase</td>
+    </tr>
+  <tr>
+      <td colspan="15"><hr style=" height:1px;border:none;border-top:1px dotted #185598;" />
+      </td>
+  </tr>
+{% if cars %}
+{% for car in cars %}
+    <tr>
+        <td>{{ car.car_id }}</td>
+        <td>{{ car.car_makename }}</td>
+        <td>{{ car.car_model }}</td>
+        <td>{{ car.car_series }}</td>
+        <td>{{ car.car_series_year }}</td>
+        <td>{{ car.car_price_new }}</td>
+        <td>{{ car.car_engine_size }}</td>
+        <td>{{ car.car_fuel_system }}</td>
+        <td>{{ car.car_tank_capacity }}</td>
+        <td>{{ car.car_power }}</td>
+        <td>{{ car.car_seating_capacity }}</td>
+        <td>{{ car.car_standard_transmission }}</td>
+        <td>{{ car.car_body_type }}</td>
+        <td>{{ car.car_drive }}</td>
+        <td>{{ car.car_wheelbase }}</td>
+    </tr>
+    <tr>
+          <td colspan="15"><hr style=" height:1px;border:none;border-top:1px dotted #185598;" />
+          </td>
+    </tr>
+{% endfor %}
+{% else %}
+     <tr>
+          <td colspan="15" align="center">no records
+          </td>
+    </tr>
+    <tr>
+          <td colspan="15"><hr style=" height:1px;border:none;border-top:1px dotted #185598;" />
+          </td>
+    </tr>
+{% endif %}
+</table>
+</div>
+
+</body>
+</html>
