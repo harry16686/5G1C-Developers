@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>store search</title>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+<body style="margin-left: 5%; margin-right: 5%" bgcolor="#f0ffff">
+
+{#<img src="/static/image/bmw.jpeg">#}
+ <h1 style="text-align: center">CRC SYSTEM</h1>
+ <div id="user_info">
+     <a href="/cars"> Car Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <a href="/stores"> Store Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <a href="/customers"> Customer Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+  {% if request.session.username %}
+            <div align="right">
+            welcome <font color="red">{{ request.session.username }}</font>
+                        <a href="/logout">logout</a>
+            </div>
+         {% else %}
+         <script language="javascript">
+            document.location = "/index";
+          </script>
+      {% endif %}
+ </div>
+<hr/>
+<div align="center">
+    <form action="/stores">
+        <h3>Store Search</h3><br/>
+        <input type="text" width="800px" id="name" name="name" value="{{ name }}"/>
+        <input type="submit"/>
+    </form>
+</div>
+<br/>
+<div id="car_list">
+<table width="100%">
+ <tr align="center" bgcolor="aqua">
+        <td>Store_ID</td>
+        <td>Store_Name</td>
+        <td>Store_Address</td>
+        <td>Store_Phone</td>
+        <td>Store_City</td>
+        <td>Store_State_Name</td>
+    </tr>
+  <tr>
+      <td colspan="6"><hr style=" height:1px;border:none;border-top:1px dotted #185598;" />
+      </td>
+  </tr>
+{% if stores %}
+{% for store in stores %}
+    <tr>
+        <td>{{ store.store_id }}</td>
+        <td>{{ store.store_name }}</td>
+        <td>{{ store.store_address }}</td>
+        <td>{{ store.store_phone }}</td>
+        <td>{{ store.store_city }}</td>
+        <td>{{ store.store_state }}</td>
+    </tr>
+    <tr>
+          <td colspan="6"><hr style=" height:1px;border:none;border-top:1px dotted #185598;" />
+          </td>
+    </tr>
+{% endfor %}
+{% else %}
+     <tr>
+          <td colspan="6" align="center">no records
+          </td>
+    </tr>
+    <tr>
+          <td colspan="6"><hr style=" height:1px;border:none;border-top:1px dotted #185598;" />
+          </td>
+    </tr>
+{% endif %}
+</table>
+</div>
+
+</body>
+</html>
