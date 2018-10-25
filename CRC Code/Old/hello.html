@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+<body style="margin-left: 10%; margin-right: 10%" bgcolor="#f0ffff">
+
+{#<img src="/static/image/bmw.jpeg">#}
+ <h1 style="text-align: center">CRC SYSTEM</h1>
+ <div id="user_info">
+     {% if request.session.username %}
+         welcome {{ request.session.username }}
+         {% else %}
+<form action="#">
+    username: <input type="text" id="username"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    password: <input type="password" id="pwd"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" value="login" id="login" > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</form>
+      {% endif %}
+ </div>
+<hr/>
+<table>
+
+{% for account in accounts %}
+    <tr>
+    <td>{{ account.id }}</td>
+    <td>{{ account.username }}</td>
+        <td>{{ account.pwd }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+</body>
+
+<script>
+   $(document).ready(function(){
+	$("#login").click(function(){
+	    var username = $("#username").val();
+	    var pwd =  $("#pwd").val();
+	    $.ajax(
+            {
+                url:"/login1?username="+username+"&pwd="+pwd,
+                type: "GET",
+                success: function(res) {
+                    alert(res)
+                    $("#user_info").reload()
+                }
+            }
+        );
+
+	});
+});
+</script>
+</html>
